@@ -1,10 +1,7 @@
-
-import { Link } from 'react-router-dom'
 const Footer = () => {
     return (
         <footer>
-            <p>Copyright 2023</p>
-            <Link to="/about">About</Link>
+            <p>Copyright rizorizo.art 2023</p>
         </footer>
     )
 }
