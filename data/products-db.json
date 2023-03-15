@@ -1,0 +1,25 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Galaxy S23",
+      "price": 999.99,
+      "description": "8gb ram, quad-core CPU",
+      "category": "phone"
+    },
+    {
+      "id": 2,
+      "name": "Yoga 730",
+      "price": 1699.99,
+      "description": "16gb ram, quad-core CPU, 4K display",
+      "category": "laptop"
+    },
+    {
+      "id": 3,
+      "name": "Legion 5i",
+      "price": 1399.99,
+      "description": "16gb ram, octo-core CPU, 1tb SSD",
+      "category": "desktop"
+    }
+  ]
+}
