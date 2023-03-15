@@ -75,21 +75,31 @@ const ProductEdit = ({ products, onUpdate, onProductUpdate, history }) => {
 			<h3>{product.name}</h3>
 			<form onSubmit={onSubmit} className="d-flex flex-column gap-2 pt-2">
 				<SearchBar
+          type="text"
 					value={product.name}
 					name="name"
 					label="Name"
 					onChange={handleValueChange}
 				/>
 				<SearchBar
+          type="text"
 					value={product.price}
 					name="price"
 					label="price"
 					onChange={handleValueChange}
 				/>
 				<SearchBar
+          type="text"
 					value={product.description}
 					name="description"
 					label="Description"
+					onChange={handleValueChange}
+				/>
+				<SearchBar
+          type="text"
+					value={product.category}
+					name="category"
+					label="Category"
 					onChange={handleValueChange}
 				/>
 				<input type="submit" value="Submit" />
