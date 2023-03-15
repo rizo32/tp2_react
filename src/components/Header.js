@@ -22,12 +22,12 @@ const Header = (props) => {
 						<ul className="navbar-nav ms-auto">
 							<li className="nav-item">
                 <Link to="/products" className="nav-link">
-									Nos produits
+									Our products
                 </Link>
 							</li>
 							<li className="nav-item">
-                <Link to="/products-create" className="nav-link">
-									Gestion inventaire
+                <Link to="/product-create" className="nav-link">
+									Inventory mgmt
                 </Link>
 							</li>
 						</ul>

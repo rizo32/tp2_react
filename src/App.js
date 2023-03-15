@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
 import Home from "./components/Home";
 import Header from "./components/Header";
 import Products from "./components/Products";
-import Product from './components/Product'
+import AddProduct from './components/AddProduct'
 import ProductEdit from './components/ProductEdit'
 
 
@@ -117,7 +117,7 @@ function App() {
 					path="/products"
 					element={<Products products={products} onDelete={deleteProduct} />}
 				/>
-				{/* <Route path="/products" element={<ProductListPage products={products} />} /> */}
+				<Route path="/product-create" element={<AddProduct />} />
 				<Route path="/product/:id/edit" element={<ProductEdit products={products} onProductUpdate={handleProductUpdate} />} />
 			</Routes>
 		</BrowserRouter>
