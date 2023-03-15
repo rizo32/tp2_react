@@ -1,12 +1,12 @@
 import Product from './Product'
 
 // const Products = ({ tasks, onDelete }) => {
-const Products = ({ products, onDelete }) => {
+const Products = ({ products }) => {
     return(
         <>
             {products.map((product)=>(
 
-        <Product key={product.id} product={product} onDelete={ onDelete } />
+        <Product key={product.id} product={product} />
             ))}
         </>
     )
