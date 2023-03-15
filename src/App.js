@@ -9,7 +9,6 @@ import ProductEdit from "./components/ProductEdit";
 
 function App() {
 	//Global
-	console.log("app");
 
 	const [products, setProducts] = useState([
 		{

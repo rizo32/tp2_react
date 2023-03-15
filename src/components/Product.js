@@ -3,26 +3,23 @@ import { Link } from "react-router-dom";
 
 // const product = products
 
-
 const Product = ({ product, onDelete }) => {
-  
+	return (
+		<div>
+			<Link to={onDelete ? `/product/${product.id}/edit` : `/product/${product.id}`}>
+				<h3>{product.name}</h3>
+			</Link>
 
-  return (
-		<Link to={ `/product/${product.id}` }>
-		{/* <Link to={ `/product/${product.id}/edit` }> */}
-			<h3>
-				{product.name}
-
-        { onDelete &&
+			{onDelete && (
 				<FaTimes
 					style={{ color: "red", cursor: "pointer" }}
 					onClick={() => onDelete(product.id)}
-				/> }
-        </h3>
-				<li>{product.price}$</li>
-				<li>{product.name}</li>
-				<li>{product.description}</li>
-		</Link>
+				/>
+			)}
+			<li>{product.price}$</li>
+			<li>{product.name}</li>
+			<li>{product.description}</li>
+		</div>
 	);
 };
 
