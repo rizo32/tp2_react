@@ -15,11 +15,17 @@ const SearchBar = (props) => {
 			<label id="name">{props.label}</label>
 			<input
 				name={props.name}
-				type="text"
+        placeholder={props.placeholder}
+				type={props.type}
 				value={searchValue}
 				onChange={handleInputChange}
 			/>
 		</div>
 	);
 };
+
+SearchBar.defaultProps = {
+  placeholder: ""
+}
+
 export default SearchBar;
