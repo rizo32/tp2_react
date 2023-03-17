@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
-import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import ProductDetail from "./components/ProductDetail";
 import Products from "./components/Products";
 import AddProduct from "./components/AddProduct";
-import ProductEdit from "./components/ProductEdit";
+import EditProduct from "./components/EditProduct";
 
 function App() {
 	//Global
@@ -41,14 +42,6 @@ function App() {
 		setProducts(updatedProducts);
 	};
 
-	// useEffect(() => {
-	// 	const getProducts = async () => {
-	// 		const productsFromJSON = await fetchProducts();
-	//     console.log(productsFromJSON);
-	// 		setProducts(productsFromJSON);
-	// 	};
-	// 	getProducts();
-	// }, []);
 
 	// const fetchProducts = async () => {
 	//   console.log("hello");
@@ -73,52 +66,32 @@ function App() {
 	//   setProducts([...products, newTask])
 	// }
 
-	//Delete
+	// Delete
 	const deleteProduct = (id) => {
 		setProducts(products.filter((product) => product.id !== id));
 	};
-	// const deleteProduct = async (id) => {
-	//   await fetch(`./products.json/${id}`, {
-	//     method: 'DELETE',
-	//   })
-	//   //console.log(id)
-	//   setTasks(tasks.filter((task) => task.id !== id))
-	// }
 
-	// function ProductDetailPage({ match }) {
-	//   const [item, setItem] = useState(null);
+  // Add
+  const onProductAdd = (newProduct) => {
+    // Use the spread operator to create a new array with the existing products and the new product
+    const updatedProducts = [...products, newProduct];
+    setProducts(updatedProducts);
+  };
 
-	//   useEffect(() => {
-	//     axios.get(`/api/items/${match.params.id}`)
-	//       .then(response => setItem(response.data))
-	//       .catch(error => console.error(error));
-	//   }, [match.params.id]);
 
-	//   if (!item) {
-	//     return <div>Loading...</div>;
-	//   }
-
-	//   return (
-	//     <div>
-	//       <h1>{item.name}</h1>
-	//       <p>{item.description}</p>
-	//     </div>
-	//   );
-	// }
-  // console.log(products.find((p) => p.id === 1));
 
 	return (
 		<BrowserRouter>
 			<Header title={"Welcome to Target Canada"} />
 			<Routes>
 				<Route path="/" exact element={<Home />} />
-        <Route path="/product-create" element={<AddProduct />} />
+        <Route path="/product-create" element={<AddProduct onProductAdd={onProductAdd}/>} />
 				<Route
 					path="/products"
 					element={<Products products={products}/>}
 				/>
 				<Route
-					path="/product/:id"
+					path="/products/:id"
 					element={
 						<ProductDetail
 							products={products} onDelete={deleteProduct}
@@ -126,15 +99,16 @@ function App() {
 					}
 				/>
 				<Route
-					path="/product/:id/edit"
+					path="/product-edit/:id"
 					element={
-						<ProductEdit
+						<EditProduct
 							products={products}
 							onProductUpdate={handleProductUpdate}
 						/>
 					}
 				/>
 			</Routes>
+      <Footer />
 		</BrowserRouter>
 	);
 }
