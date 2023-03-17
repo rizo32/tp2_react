@@ -7,7 +7,7 @@ import ColoredLine from "./ColoredLine";
 const Product = ({ product, onDelete }) => {
 	return (
 		<div className="bg-light container border border-info rounded py-4">
-			<h3 className="text-center">
+			<div className="text-center">
 				{onDelete ? (
 					<h3>{product.name}</h3>
 				) : (
@@ -15,7 +15,7 @@ const Product = ({ product, onDelete }) => {
 						<h3>{product.name}</h3>
 					</Link>
 				)}
-			</h3>
+			</div>
 			<li className="no-bullets p-2">
 				<b>Category: </b>
 				{product.category}
@@ -28,6 +28,7 @@ const Product = ({ product, onDelete }) => {
 				<b>Description: </b>
 				{product.description}
 			</li>
+      {/* Si onDelete existe, c'est parce qu'on vient de EditProduct, et pas la page liste Products */}
 			{onDelete && (
 				<li className="no-bullets p-2">
 					<ColoredLine color="red" />
