@@ -7,9 +7,9 @@ const Header = (props) => {
 	const location = useLocation();
 	return (
 		<header className="header">
-			<nav className="navbar navbar-expand-md bg-secondary navbar-light">
+			<nav className="navbar navbar-expand-md bg-info navbar-light">
 				<div className="container">
-          <Link to="/"><img src="logo192.png" height="50px"/></Link>
+          <Link to="/"><img src="target-logo.png" height="50px"/></Link>
 					<button
 						className="navbar-toggler"
 						type="button"
@@ -20,13 +20,13 @@ const Header = (props) => {
 					</button>
 					<div className="collapse navbar-collapse" id="navmenu">
 						<ul className="navbar-nav ms-auto">
-							<li className="nav-item">
-                <Link to="/products" className="nav-link">
+							<li className="nav-item px-3">
+                <Link to="/products" className="nav-link text-light">
 									Our products
                 </Link>
 							</li>
 							<li className="nav-item">
-                <Link to="/product-create" className="nav-link">
+                <Link to="/product-create" className="nav-link text-light">
 									Inventory mgmt
                 </Link>
 							</li>
@@ -34,15 +34,8 @@ const Header = (props) => {
 					</div>
 				</div>
 			</nav>
-			<div className="container">
+			<div className="container py-3 text-center">
 				<h1>{props.title}</h1>
-				{/* {location.pathname === "/" && (
-					<Button
-						text={props.showAdd ? "Close" : "Add"}
-						color={props.showAdd ? "red" : "green"}
-						onClick={props.onAdd}
-					/>
-				)} */}
 			</div>
 		</header>
 	);
