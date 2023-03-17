@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import Header from "./components/Header";
@@ -11,29 +11,7 @@ import EditProduct from "./components/EditProduct";
 function App() {
 	//Global
 
-	const [products, setProducts] = useState([
-		{
-			id: 1,
-			name: "Galaxy S23",
-			price: 999.99,
-			description: "8gb ram, quad-core CPU",
-			category: "phone",
-		},
-		{
-			id: 2,
-			name: "Yoga 730",
-			price: 1699.99,
-			description: "16gb ram, quad-core CPU, 4K display",
-			category: "laptop",
-		},
-		{
-			id: 3,
-			name: "Legion 5i",
-			price: 1399.99,
-			description: "16gb ram, octo-core CPU, 1tb SSD",
-			category: "desktop",
-		},
-	]);
+	const [products, setProducts] = useState([]);
 
 	const handleProductUpdate = (updatedProduct) => {
 		const updatedProducts = products.map((product) =>
@@ -42,60 +20,53 @@ function App() {
 		setProducts(updatedProducts);
 	};
 
-
-	// const fetchProducts = async () => {
-	//   console.log("hello");
-	// 	const res = await fetch("/data/products-db.json");
-	// 	const data = await res.json();
-	// 	return data;
-	// };
-
-	// const fetchProduct = async (id) => {
-	// 	const res = await fetch(`http://localhost:5000/products/${id}`);
-	// 	const data = await res.json();
-	// 	//console.log(data)
-	// 	return data;
-	// };
-
-	// //Edit
-	// const editProduct = (product) => {
-	//   //console.log(task)
-	//   const id = Math.floor(Math.random() * 1000)
-	//   const newTask = {id, ...task}
-	//   //console.log(newTask)
-	//   setProducts([...products, newTask])
-	// }
+	useEffect(() => {
+		const fetchProduct = async () => {
+			const res = await fetch(`http://localhost:5000/products`);
+			const products = await res.json();
+			console.log(products);
+			setProducts(products);
+		};
+		fetchProduct();
+	}, []);
 
 	// Delete
-	const deleteProduct = (id) => {
+	const deleteProduct = async (id) => {
+    await fetch(`http://localhost:5000/products/${id}`, {
+      method: 'DELETE',
+    })
 		setProducts(products.filter((product) => product.id !== id));
 	};
 
-  // Add
-  const onProductAdd = (newProduct) => {
-    // Use the spread operator to create a new array with the existing products and the new product
+	// Add
+	const onProductAdd = async (product) => {
+    const res = await fetch('http://localhost:5000/products', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(product)
+    })
+		// Spread operator pour créer un nouvel array avec les produits existants et le nouveau produit
+		const newProduct = await res.json();
     const updatedProducts = [...products, newProduct];
-    setProducts(updatedProducts);
-  };
-
-
+		setProducts(updatedProducts);
+	};
 
 	return (
 		<BrowserRouter>
 			<Header title={"Welcome to Target Canada"} />
 			<Routes>
 				<Route path="/" exact element={<Home />} />
-        <Route path="/product-create" element={<AddProduct onProductAdd={onProductAdd}/>} />
 				<Route
-					path="/products"
-					element={<Products products={products}/>}
+					path="/product-create"
+					element={<AddProduct onProductAdd={onProductAdd} />}
 				/>
+				<Route path="/products" element={<Products products={products} />} />
 				<Route
 					path="/products/:id"
 					element={
-						<ProductDetail
-							products={products} onDelete={deleteProduct}
-						/>
+						<ProductDetail products={products} onDelete={deleteProduct} />
 					}
 				/>
 				<Route
@@ -108,7 +79,7 @@ function App() {
 					}
 				/>
 			</Routes>
-      <Footer />
+			<Footer />
 		</BrowserRouter>
 	);
 }

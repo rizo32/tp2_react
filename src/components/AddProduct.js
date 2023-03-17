@@ -3,18 +3,11 @@ import SearchBar from "./SearchBar";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import { FaArrowLeft, FaCheck } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 
 const AddProduct = ({ onProductAdd }) => {
 	// Initialisation du produit
-	const id = Math.floor(Math.random() * 1000);
-	const [newProduct, setNewProduct] = useState({
-		id: id,
-		name: "",
-		price: "",
-		description: "",
-		category: "",
-	});
+	const [newProduct, setNewProduct] = useState(false);
 
 	const handleValueChange = (event) => {
 		const { name, value } = event.target;
@@ -31,7 +24,6 @@ const AddProduct = ({ onProductAdd }) => {
 		event.preventDefault();
 		onProductAdd(newProduct);
 		setNewProduct({
-			id: "",
 			name: "",
 			price: "",
 			description: "",
@@ -43,7 +35,7 @@ const AddProduct = ({ onProductAdd }) => {
 	return (
 		<div className="container py-1 d-flex flex-column gap-5 w-50">
 			<form onSubmit={onSubmit} className="bg-light container border border-info rounded py-4">
-			<h3 className="text-center">Ajout dans l'inventaire</h3>
+			<h3 className="text-center">Add to inventory</h3>
 				<SearchBar
 					type="text"
 					value={newProduct.name}
@@ -51,16 +43,25 @@ const AddProduct = ({ onProductAdd }) => {
 					placeholder="ex. thingy"
 					name="name"
 					label="Name"
-          isRequired="true"
+          isRequired={true}
 				/>
+        <SearchBar
+          type="text"
+          value={newProduct.category}
+          onChange={handleValueChange}
+          placeholder="ex. Laptop"
+          name="category"
+          label="Category"
+          isRequired={true}
+        />
 				<SearchBar
-					type="text"
+					type="number"
 					value={newProduct.price}
 					onChange={handleValueChange}
 					placeholder="ex. 99.99$"
 					name="price"
 					label="Price"
-          isRequired="true"
+          isRequired={true}
 				/>
 				<SearchBar
 					type="text"
@@ -69,15 +70,6 @@ const AddProduct = ({ onProductAdd }) => {
 					placeholder="ex. blabla"
 					name="description"
 					label="Description"
-				/>
-				<SearchBar
-					type="text"
-					value={newProduct.category}
-					onChange={handleValueChange}
-					placeholder="ex. Laptop"
-					name="category"
-					label="Category"
-          isRequired="true"
 				/>
 				<div className="d-flex justify-content-evenly py-3">
 					<div className="lead pointer">

@@ -54,7 +54,7 @@ const EditProduct = ({ products, onProductUpdate }) => {
 					onChange={handleValueChange}
 				/>
 				<SearchBar
-					type="text"
+					type="number"
 					value={product.price}
 					name="price"
 					label="Price"
