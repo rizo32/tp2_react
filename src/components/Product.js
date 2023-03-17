@@ -1,24 +1,64 @@
-import { FaTimes } from "react-icons/fa";
+import { FaTimes, FaWrench, FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import ColoredLine from "./ColoredLine";
 
 // const product = products
 
 const Product = ({ product, onDelete }) => {
 	return (
-		<div>
-			<Link to={onDelete ? `/product/${product.id}/edit` : `/product/${product.id}`}>
-				<h3>{product.name}</h3>
-			</Link>
-
+		<div className="bg-light container border border-info rounded py-4">
+			<h3 className="text-center">
+				{onDelete ? (
+					<h3>{product.name}</h3>
+				) : (
+					<Link to={`${product.id}`}>
+						<h3>{product.name}</h3>
+					</Link>
+				)}
+			</h3>
+			<li className="no-bullets p-2">
+				<b>Category: </b>
+				{product.category}
+			</li>
+			<li className="no-bullets p-2">
+				<b>Price: </b>
+				{product.price}$
+			</li>
+			<li className="no-bullets p-2">
+				<b>Description: </b>
+				{product.description}
+			</li>
 			{onDelete && (
-				<FaTimes
-					style={{ color: "red", cursor: "pointer" }}
-					onClick={() => onDelete(product.id)}
-				/>
+				<li className="no-bullets p-2">
+					<ColoredLine color="red" />
+					<div className="d-flex justify-content-evenly">
+          <div className="lead pointer">
+							<Link
+								className="text-dark text-decoration-none"
+								to={`/products`}
+							>
+								<span>Back </span>
+								<FaArrowLeft />
+							</Link>
+						</div>
+						<div className="lead pointer">
+							<Link
+								className="text-dark text-decoration-none"
+								to={`/product-edit/${product.id}`}
+							>
+								<span>Update </span>
+								<FaWrench />
+							</Link>
+						</div>
+            <div className="lead pointer" onClick={() => onDelete(product.id)}>
+							<span>Delete </span>
+							<FaTimes className="text-danger" />
+						</div>
+
+
+					</div>
+				</li>
 			)}
-			<li>{product.price}$</li>
-			<li>{product.name}</li>
-			<li>{product.description}</li>
 		</div>
 	);
 };
