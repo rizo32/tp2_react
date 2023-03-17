@@ -11,17 +11,23 @@ const SearchBar = (props) => {
 	};
 
 	return (
-		<div>
-			<label id="name">{props.label}</label>
+		<div className="no-bullets p-2">
+			<label id="name"><b>{props.label}: </b></label>
 			<input
 				name={props.name}
         placeholder={props.placeholder}
 				type={props.type}
 				value={searchValue}
 				onChange={handleInputChange}
+        className="form-control"
+        required={props.isRequired}
 			/>
 		</div>
 	);
+};
+
+SearchBar.defaultProps = {
+	isRequired: "false"
 };
 
 SearchBar.defaultProps = {
