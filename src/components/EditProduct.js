@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
-import { FaArrowLeft, FaCheck } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 
 const EditProduct = ({ products, onProductUpdate }) => {
 	// Récupération de l'identifiant du produit dans l'URL
@@ -53,6 +53,13 @@ const EditProduct = ({ products, onProductUpdate }) => {
 					label="Name"
 					onChange={handleValueChange}
 				/>
+        <SearchBar
+          type="text"
+          value={product.category}
+          name="category"
+          label="Category"
+          onChange={handleValueChange}
+        />
 				<SearchBar
 					type="number"
 					value={product.price}
@@ -65,13 +72,6 @@ const EditProduct = ({ products, onProductUpdate }) => {
 					value={product.description}
 					name="description"
 					label="Description"
-					onChange={handleValueChange}
-				/>
-				<SearchBar
-					type="text"
-					value={product.category}
-					name="category"
-					label="Category"
 					onChange={handleValueChange}
 				/>
 				<div className="text-center">
