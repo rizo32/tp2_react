@@ -20,13 +20,6 @@
       "price": 1399.99,
       "description": "16gb ram, octo-core CPU, 1tb SSD",
       "category": "desktop"
-    },
-    {
-      "name": "fawe",
-      "category": "fawe",
-      "price": "47",
-      "description": "faw",
-      "id": 4
     }
   ]
 }
