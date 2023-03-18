@@ -2,7 +2,9 @@ import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
 import { Link } from 'react-router-dom'
 
+// Le composant Header affiche la barre de navigation ainsi que le titre de la page
 const Header = (props) => {
+  // On récupère la location grâce à useLocation() pour pouvoir changer la page active dans la barre de navigation
 	const location = useLocation();
 	return (
 		<header className="header">
@@ -19,12 +21,12 @@ const Header = (props) => {
 					</button>
 					<div className="collapse navbar-collapse" id="navmenu">
 						<ul className="navbar-nav ms-auto">
-							<li className="nav-item px-3">
-                <Link to="/products" className="nav-link text-light">
+            <li className={`nav-item px-3 ${location.pathname === '/products' ? 'fw-bold' : ''}`}>
+              <Link to="/products" className="nav-link text-light">
 									Our products
                 </Link>
 							</li>
-							<li className="nav-item">
+              <li className={`nav-item px-3 ${location.pathname === '/product-create' ? 'fw-bold' : ''}`}>
                 <Link to="/product-create" className="nav-link text-light">
 									Inventory mgmt
                 </Link>
@@ -40,10 +42,7 @@ const Header = (props) => {
 	);
 };
 
-Header.defaultProps = {
-	title: "Amazing new product",
-};
-
+// Validation de la propriété 'title' en tant que chaîne de caractères obligatoire
 Header.propTypes = {
 	title: PropTypes.string.isRequired,
 };
