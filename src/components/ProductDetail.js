@@ -5,11 +5,14 @@ const ProductDetail = ({ products, onDelete }) => {
 	const { id } = useParams();
 	const navigate = useNavigate();
 
+  // Fonction de suppression
 	const handleProductDeleted = (id) => {
 		onDelete(id);
+    // redirection
 		navigate("/products");
 	};
 
+  // trouver le produit correspondant à l'ID dans l'URL
 	const product = products.find((p) => p.id === parseInt(id));
 
 	return (
