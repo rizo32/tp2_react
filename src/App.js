@@ -9,47 +9,63 @@ import AddProduct from "./components/AddProduct";
 import EditProduct from "./components/EditProduct";
 
 function App() {
-	//Global
-
+	// Déclaration du state 'products' qui contient tous les produits
 	const [products, setProducts] = useState([]);
 
-	const handleProductUpdate = (updatedProduct) => {
-		const updatedProducts = products.map((product) =>
-			product.id === updatedProduct.id ? updatedProduct : product
-		);
-		setProducts(updatedProducts);
-	};
-
+	// Hook useEffect pour récupérer tous les produits lors du chargement de la page
 	useEffect(() => {
 		const fetchProduct = async () => {
 			const res = await fetch(`http://localhost:5000/products`);
 			const products = await res.json();
-			console.log(products);
 			setProducts(products);
 		};
 		fetchProduct();
 	}, []);
 
+	// Add
+	const onProductAdd = async (product) => {
+		const res = await fetch("http://localhost:5000/products", {
+			method: "POST",
+			headers: {
+				"Content-type": "application/json",
+			},
+			body: JSON.stringify(product),
+		});
+		// On crée un nouvel array de produits en ajoutant le nouveau produit
+		const newProduct = await res.json();
+		const updatedProducts = [...products, newProduct];
+		setProducts(updatedProducts);
+	};
+
 	// Delete
 	const deleteProduct = async (id) => {
-    await fetch(`http://localhost:5000/products/${id}`, {
-      method: 'DELETE',
-    })
+		await fetch(`http://localhost:5000/products/${id}`, {
+			method: "DELETE",
+		});
+		// On crée un nouvel array de produits en filtrant le produit supprimé
 		setProducts(products.filter((product) => product.id !== id));
 	};
 
-	// Add
-	const onProductAdd = async (product) => {
-    const res = await fetch('http://localhost:5000/products', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(product)
-    })
-		// Spread operator pour créer un nouvel array avec les produits existants et le nouveau produit
-		const newProduct = await res.json();
-    const updatedProducts = [...products, newProduct];
+	// Edit
+	const handleProductUpdate = async (updatedProduct) => {
+		const res = await fetch(
+			`http://localhost:5000/products/${updatedProduct.id}`,
+			{
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(updatedProduct),
+			}
+		);
+		const updatedProductFromServer = await res.json();
+
+		// On crée un nouvel array de produits en mettant à jour le produit modifié
+		const updatedProducts = products.map((product) =>
+			product.id === updatedProductFromServer.id
+				? updatedProductFromServer
+				: product
+		);
 		setProducts(updatedProducts);
 	};
 
